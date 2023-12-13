@@ -1,12 +1,11 @@
 import math
 
 # game settings
-WIDTH = 1000
-HEIGHT = 600
+WIDTH, HEIGHT = RES = (1000, 600)
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
-FPS = 60
-TILE = 100
+FPS = 400
+TILE = 32
 
 
 # player settings

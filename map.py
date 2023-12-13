@@ -1,18 +1,35 @@
 from settings import *
 
-text_map = [
-    'WWWWWWWWWWWW',
-    'W......W...W',
-    'W..WWW...W.W',
-    'W....W..WW.W',
-    'W..W....W..W',
-    'W..W...WWW.W',
-    'W....W.....W',
-    'WWWWWWWWWWWW'
+import pygame
+
+_ = False
+
+mini_map = [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 1],
+    [1, _, _, 1, 1, 1, 1, _, _, _, 1, 1, 1, _, _, 1],
+    [1, _, _, _, _, _, 1, _, _, _, _, _, 1, _, _, 1],
+    [1, _, _, _, _, _, 1, _, _, _, _, _, 1, _, _, 1],
+    [1, _, _, 1, 1, 1, 1, _, _, _, _, _, _, _, _, 1],
+    [1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 1],
+    [1, _, _, _, 1, _, _, _, 1, _, _, _, _, _, _, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ]
 
-world_map = set()
-for j, row in enumerate(text_map):
-    for i, char in enumerate(row):
-        if char == 'W':
-            world_map.add((i * TILE, j * TILE))
+
+class Map:
+    def __init__(self, game):
+        self.game = game
+        self.mini_map = mini_map
+        self.world_map = {}
+        self.get_map()
+
+    def get_map(self):
+        for j, row in enumerate(self.mini_map):
+            for i, value in enumerate(row):
+                if value:
+                    self.world_map[(i, j)] = value
+
+    def draw(self):
+        [pygame.draw.rect(self.game.screen, 'darkgray', (pos[0] * TILE, pos[1] * TILE, TILE, TILE), 2)
+         for pos in self.world_map]
