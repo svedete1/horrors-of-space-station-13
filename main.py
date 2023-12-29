@@ -1,9 +1,5 @@
 import sys
 
-import pygame
-from settings import *
-from player import Player
-import math
 from map import *
 
 

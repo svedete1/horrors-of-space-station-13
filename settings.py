@@ -9,7 +9,6 @@ TILE = 32
 
 
 # player settings
-player_pos = (HALF_WIDTH, HALF_HEIGHT)
 player_angle = 0
 player_speed = 6
 
