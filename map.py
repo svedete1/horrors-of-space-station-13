@@ -31,5 +31,11 @@ class Map:
                     self.world_map[(i, j)] = value
 
     def draw(self):
-        [pygame.draw.rect(self.game.screen, DARKGRAY, (pos[0] * TILE, pos[1] * TILE, TILE, TILE), 2)
+        #[pygame.draw.rect(self.game.screen, DARKGRAY, (pos[0] * TILE, pos[1] * TILE, TILE, TILE), 2)
+        #  for pos in self.world_map]
+
+        [pygame.draw.rect(self.game.screen, DARKGRAY,
+                          (HALF_WIDTH - (self.game.player.x - pos[0] * TILE),
+                           HALF_HEIGHT - (self.game.player.y - pos[1] * TILE),
+                           TILE, TILE), 2)
          for pos in self.world_map]

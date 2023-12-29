@@ -20,6 +20,12 @@ class Player(mob.Mob):
             self.x += player_speed
         self.angle = self._get_mouse_angle()
 
+    def draw(self):
+        pygame.draw.circle(self.game.screen, GREEN, (HALF_WIDTH, HALF_HEIGHT), 8.0)
+        pygame.draw.line(self.game.screen, GREEN, (HALF_WIDTH, HALF_HEIGHT),
+                         (HALF_WIDTH + WIDTH * math.cos(self._get_mouse_angle()),
+                          HALF_HEIGHT + WIDTH * math.sin(self._get_mouse_angle())), 2)
+
     def _get_mouse_angle(self):
         m_x, m_y = pygame.mouse.get_pos()
         return math.atan2(m_y - HALF_HEIGHT, m_x - HALF_WIDTH)

@@ -5,12 +5,12 @@ WIDTH, HEIGHT = RES = (1000, 600)
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
 FPS = 400
-TILE = 32
+TILE = 48
 
 
 # player settings
 player_angle = 0
-player_speed = 6
+player_speed = 0.6
 
 # colors
 WHITE = (255, 255, 255)

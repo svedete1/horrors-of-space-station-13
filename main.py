@@ -1,6 +1,7 @@
 import sys
 
 from map import *
+from mob.player import player
 
 
 class Game:
@@ -11,16 +12,19 @@ class Game:
         self.new_game()
 
     def new_game(self):
+        self.player = player.Player(self, (HALF_WIDTH, HALF_HEIGHT))
         self.map = Map(self)
 
     def update(self):
         pygame.display.flip()
         self.clock.tick(FPS)
         pygame.display.set_caption(f"{self.clock.get_fps():.1f}")
+        self.player.movement()
 
     def draw(self):
         self.screen.fill('black')
         self.map.draw()
+        self.player.draw()
 
     def check_events(self):
         for event in pygame.event.get():
