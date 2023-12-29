@@ -1,9 +1,50 @@
-import pygame
-from settings import *
-from player import Player
-import math
-from map import world_map
+import sys
 
+from map import *
+from mob.player import player
+
+
+class Game:
+    def __init__(self):
+        pygame.init()
+        self.screen = pygame.display.set_mode(RES)
+        self.clock = pygame.time.Clock()
+        self.new_game()
+
+    def new_game(self):
+        self.player = player.Player(self, (HALF_WIDTH, HALF_HEIGHT))
+        self.map = Map(self)
+
+    def update(self):
+        pygame.display.flip()
+        self.clock.tick(FPS)
+        pygame.display.set_caption(f"{self.clock.get_fps():.1f}")
+        self.player.movement()
+
+    def draw(self):
+        self.screen.fill('black')
+        self.map.draw()
+        self.player.draw()
+
+    def check_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+    def run(self):
+        while True:
+            self.check_events()
+            self.update()
+            self.draw()
+
+
+if __name__ == "__main__":
+    game = Game()
+    game.run()
+
+# old code
+'''
 if __name__ == "__main__":
     pygame.init()
     sc = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -27,3 +68,4 @@ if __name__ == "__main__":
 
         pygame.display.flip()
         clock.tick(FPS)
+'''

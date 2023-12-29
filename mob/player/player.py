@@ -1,18 +1,11 @@
 from settings import *
 
+from mob import mob
 import pygame
 import math
 
 
-class Player:
-    def __init__(self):
-        self.x, self.y = player_pos
-        self.angle = player_angle
-
-    @property
-    def pos(self):
-        return (self.x, self.y)
-
+class Player(mob.Mob):
     def movement(self):
         sin_a = math.sin(self.angle)
         cos_a = math.cos(self.angle)
@@ -26,6 +19,12 @@ class Player:
         if keys[pygame.K_d]:
             self.x += player_speed
         self.angle = self._get_mouse_angle()
+
+    def draw(self):
+        pygame.draw.circle(self.game.screen, GREEN, (HALF_WIDTH, HALF_HEIGHT), 8.0)
+        pygame.draw.line(self.game.screen, GREEN, (HALF_WIDTH, HALF_HEIGHT),
+                         (HALF_WIDTH + WIDTH * math.cos(self._get_mouse_angle()),
+                          HALF_HEIGHT + WIDTH * math.sin(self._get_mouse_angle())), 2)
 
     def _get_mouse_angle(self):
         m_x, m_y = pygame.mouse.get_pos()
