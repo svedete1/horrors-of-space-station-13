@@ -3,6 +3,7 @@ from settings import *
 from main import Game
 import pygame
 import math
+import mob
 
 
 class Mob:
@@ -14,9 +15,38 @@ class Mob:
         self.angle = angle
         self.game = game
 
+    def process(self):
+        pass
+
     @property
     def pos(self):
         return (self.x, self.y)
 
     def draw(self, player_pos):
         pass
+
+
+class MobHandler:
+    def __init__(self, game: Game):
+        self.game = game
+        self.mobs = list()
+
+    def process(self):
+        for mob in self.mobs:
+            mob.process()
+
+    def draw(self):
+        for mob in self.mobs:
+            mob.draw(self.game.mobhandler.get_player.pos)
+
+    def add_mob(self, mob: Mob):
+        self.mobs.append(mob)
+
+    def delete_mob(self, mob: Mob):
+        self.mobs.remove(mob)
+
+    @property
+    def get_player(self):
+        for i in self.mobs:
+            if isinstance(i, mob.player.player.Player):
+                return i

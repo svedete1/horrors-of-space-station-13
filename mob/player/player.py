@@ -6,7 +6,7 @@ import math
 
 
 class Player(mob.Mob):
-    def movement(self):
+    def process(self):
         sin_a = math.sin(self.angle)
         cos_a = math.cos(self.angle)
         keys = pygame.key.get_pressed()
@@ -20,7 +20,7 @@ class Player(mob.Mob):
             self.x += player_speed
         self.angle = self._get_mouse_angle()
 
-    def draw(self):
+    def draw(self, player_pos):
         pygame.draw.circle(self.game.screen, GREEN, (HALF_WIDTH, HALF_HEIGHT), 8.0)
         pygame.draw.line(self.game.screen, GREEN, (HALF_WIDTH, HALF_HEIGHT),
                          (HALF_WIDTH + WIDTH * math.cos(self._get_mouse_angle()),

@@ -35,7 +35,7 @@ class Map:
         #  for pos in self.world_map]
 
         [pygame.draw.rect(self.game.screen, DARKGRAY,
-                          (HALF_WIDTH - (self.game.player.x - pos[0] * TILE),
-                           HALF_HEIGHT - (self.game.player.y - pos[1] * TILE),
+                          (HALF_WIDTH - (self.game.mobhandler.get_player.x - pos[0] * TILE),
+                           HALF_HEIGHT - (self.game.mobhandler.get_player.y - pos[1] * TILE),
                            TILE, TILE), 2)
          for pos in self.world_map]
