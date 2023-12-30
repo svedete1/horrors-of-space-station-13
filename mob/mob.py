@@ -7,9 +7,12 @@ import mob
 
 
 class Mob:
-    def __init__(self, game: Game, pos: tuple, icon: str="", icon_state: str="", health: int=100, angle: int=0):
+    def __init__(self, game: Game, pos: tuple, icon: str = "", icon_state: str = "", health: int = 100, angle: int = 0):
         self.x, self.y = pos
-        self.icon = icon
+        if icon:
+            self.icon = pygame.image.load(icon).convert_alpha()
+        else:
+            self.icon = None
         self.icon_state = icon_state
         self.health = health
         self.angle = angle
@@ -23,7 +26,13 @@ class Mob:
         return (self.x, self.y)
 
     def draw(self, player_pos):
-        pass
+        spr = self.get_sprite(0, 0)
+        self.game.screen.blit(spr, spr.get_rect())
+
+    def get_sprite(self, x, y):
+        sprite = pygame.Surface((TILE, TILE), pygame.SRCALPHA)
+        sprite.blit(self.icon, (0, 0), (x * TILE, y * TILE, TILE, TILE))
+        return sprite
 
 
 class MobHandler:

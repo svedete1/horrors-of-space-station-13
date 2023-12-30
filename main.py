@@ -10,16 +10,17 @@ class Game:
         pygame.init()
         self.screen = pygame.display.set_mode(RES)
         self.clock = pygame.time.Clock()
+        self.delta_time = 1
         self.new_game()
 
     def new_game(self):
         self.mobhandler = mob.MobHandler(self)
-        self.mobhandler.add_mob(player.Player(self, (HALF_WIDTH, HALF_HEIGHT)))
+        self.mobhandler.add_mob(player.Player(self, (HALF_WIDTH, HALF_HEIGHT), icon="icon/mob/mob.png", icon_state="down"))
         self.map = Map(self)
 
     def update(self):
         pygame.display.flip()
-        self.clock.tick(FPS)
+        self.delta_time = self.clock.tick(FPS)
         pygame.display.set_caption(f"{self.clock.get_fps():.1f}")
         self.mobhandler.process()
 
