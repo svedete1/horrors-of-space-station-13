@@ -42,7 +42,7 @@ class Player(mob.Mob):
         elif x_m and not x_p:
             self.icon_state = "left"
 
-    def draw(self, player_pos):
+    def draw(self, player_pos: tuple[int, int]):
         # pygame.draw.circle(self.game.screen, GREEN, (HALF_WIDTH, HALF_HEIGHT), 8.0)
         spr = self.get_sprite(5, 14)
         self.game.screen.blit(spr, (HALF_WIDTH - 16, HALF_HEIGHT - 16))
