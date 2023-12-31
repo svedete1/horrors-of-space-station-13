@@ -1,7 +1,10 @@
 import sys
 
-from map import *
+from settings import *
+import pygame
 from mob.player import player
+from mob import mob
+from turf import turf
 
 
 class Game:
@@ -9,22 +12,26 @@ class Game:
         pygame.init()
         self.screen = pygame.display.set_mode(RES)
         self.clock = pygame.time.Clock()
+        self.delta_time = 1
         self.new_game()
 
     def new_game(self):
-        self.player = player.Player(self, (HALF_WIDTH, HALF_HEIGHT))
-        self.map = Map(self)
+        self.mobhandler = mob.MobHandler(self)
+        self.mobhandler.add_mob(player.Player(self, (HALF_WIDTH, HALF_HEIGHT),
+                                              icon="icon/mob/mob.png", icon_state="down"))
+        self.turfhandler = turf.TurfHandler(self)
 
     def update(self):
         pygame.display.flip()
-        self.clock.tick(FPS)
+        self.delta_time = self.clock.tick(FPS)
         pygame.display.set_caption(f"{self.clock.get_fps():.1f}")
-        self.player.movement()
+        self.turfhandler.process()
+        self.mobhandler.process()
 
     def draw(self):
-        self.screen.fill('black')
-        self.map.draw()
-        self.player.draw()
+        self.screen.fill(BLACK)
+        self.turfhandler.draw()
+        self.mobhandler.draw()
 
     def check_events(self):
         for event in pygame.event.get():

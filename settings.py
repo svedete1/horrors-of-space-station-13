@@ -4,13 +4,13 @@ import math
 WIDTH, HEIGHT = RES = (1000, 600)
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
-FPS = 400
-TILE = 48
+FPS = 0
+TILE = 32
 
 
 # player settings
 player_angle = 0
-player_speed = 0.6
+player_speed = 0.3
 
 # colors
 WHITE = (255, 255, 255)
