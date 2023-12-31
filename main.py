@@ -25,6 +25,7 @@ class Game:
         pygame.display.flip()
         self.delta_time = self.clock.tick(FPS)
         pygame.display.set_caption(f"{self.clock.get_fps():.1f}")
+        self.turfhandler.process()
         self.mobhandler.process()
 
     def draw(self):

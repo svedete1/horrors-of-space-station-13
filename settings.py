@@ -4,7 +4,7 @@ import math
 WIDTH, HEIGHT = RES = (1000, 600)
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
-FPS = 500
+FPS = 0
 TILE = 32
 
 

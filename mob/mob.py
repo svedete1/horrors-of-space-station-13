@@ -7,7 +7,15 @@ import mob
 
 
 class Mob:
-    def __init__(self, game, pos: tuple[int, int], icon: str = "", icon_state: str = "", health: int = 100, angle: int = 0):
+    icon_states = {
+        "": (0, 0)
+    }
+    x_offset = 0
+    y_offset = 0
+    hitbox_size = (0, 0)
+
+    def __init__(self, game, pos: tuple[int, int],
+                 icon: str = "", icon_state: str = "", health: int = 100, angle: int = 0):
         self.x, self.y = pos
         if icon:
             self.icon = pygame.image.load(icon).convert_alpha()
@@ -17,22 +25,39 @@ class Mob:
         self.health = health
         self.angle = angle
         self.game = game
+        self.sprite = pygame.Surface((0, 0))
+        self.hitbox = pygame.Surface((0, 0))
+        self.hitbox_mask = pygame.Mask((0, 0))
 
     def process(self):
-        pass
+        self.update_sprite()
 
     @property
     def pos(self):
-        return (self.x, self.y)
+        return self.x, self.y
 
-    def draw(self, player_pos: tuple[int, int]):
-        spr = self.get_sprite(0, 0)
-        self.game.screen.blit(spr, spr.get_rect())
+    def draw(self):
+        self.game.screen.blit(self.sprite,
+                              (HALF_WIDTH - (self.game.mobhandler.get_player.x - self.x * TILE),
+                               HALF_HEIGHT - (self.game.mobhandler.get_player.y - self.y * TILE)))
 
-    def get_sprite(self, x: int, y: int):
-        sprite = pygame.Surface((TILE, TILE), pygame.SRCALPHA)
-        sprite.blit(self.icon, (0, 0), (x * TILE, y * TILE, TILE, TILE))
-        return sprite
+    def update_sprite(self):
+        self.sprite = pygame.Surface((TILE, TILE), pygame.SRCALPHA)
+        self.hitbox = pygame.Surface(self.hitbox_size)
+        self.hitbox.fill(RED)
+        state = self.icon_states[self.icon_state]
+        self.sprite.blit(self.icon, (0, 0), (state[0] * TILE, state[1] * TILE, TILE, TILE))
+        self.hitbox_mask = pygame.mask.from_surface(self.hitbox)
+        self.hitbox.set_colorkey(RED)
+
+    def check_collisions(self):
+        for i in self.game.turfhandler.world_map:
+            turf = self.game.turfhandler.world_map[i]
+            if (turf.hitbox_mask.overlap(self.hitbox_mask,
+                                         (turf.x - self.x + self.x_offset, turf.y - self.y + self.y_offset))
+                    and turf.impassible):
+                return True
+        return False
 
 
 class MobHandler:
@@ -46,7 +71,7 @@ class MobHandler:
 
     def draw(self):
         for mob in self.mobs:
-            mob.draw(self.game.mobhandler.get_player.pos)
+            mob.draw()
 
     def add_mob(self, mob: Mob):
         self.mobs.append(mob)
