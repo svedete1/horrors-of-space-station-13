@@ -3,7 +3,8 @@ import sys
 from settings import *
 import pygame
 from mobs.player import player
-from mobs import mob
+import mobs
+from mobs.smart import smart_mob
 from turfs import turf
 
 
@@ -16,9 +17,10 @@ class Game:
         self.new_game()
 
     def new_game(self):
-        self.mobhandler = mob.MobHandler(self)
-        self.mobhandler.add_mob(player.Player(self, (HALF_WIDTH, HALF_HEIGHT),
+        self.mobhandler = mobs.mob.MobHandler(self)
+        self.mobhandler.add_mob(player.Player(self, (1, 2),
                                               icon="icon/mobs/mob.png", icon_state="down"))
+        self.mobhandler.add_mob(smart_mob.SmartMob(self, (1, 1)))
         self.turfhandler = turf.TurfHandler(self)
 
     def update(self):
