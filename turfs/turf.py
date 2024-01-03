@@ -25,17 +25,20 @@ icon_states = {
 class Turf:
     impassible = True
     hitbox_size = (TILE, TILE)
+    icon_path = "icon/turfs/wall.png"
+    icon_states = {
+        "": (0, 0),
+    }
+    icon_state = ""
 
     def __init__(self, game, map_pos: tuple[int, int]):
         self.game = game
         self.mx, self.my = map_pos
         self.x, self.y = self.mx * TILE, self.my * TILE
-        self.icon = pygame.image.load("icon/turf/wall.png").convert_alpha()
-        self.icon_state = "default"
+        self.icon = pygame.image.load(self.icon_path).convert_alpha()
         self.sprite = None
         self.sprite_mask = None
         self.hitbox = None
-        self.hitbox_mask = None
 
     def process(self):
         self.update_sprite()
@@ -47,9 +50,9 @@ class Turf:
 
     def update_sprite(self):
         self.sprite = pygame.Surface((TILE, TILE), pygame.SRCALPHA)
-        state = icon_states[self.icon_state]
+        state = self.icon_states[self.icon_state]
         self.sprite.blit(self.icon, (0, 0), (state[0] * TILE, state[1] * TILE, TILE, TILE))
-        self.hitbox_mask = pygame.mask.from_surface(self.sprite)
+        self.hitbox = pygame.mask.from_surface(self.sprite)
 
 
 class TurfHandler:
@@ -62,8 +65,11 @@ class TurfHandler:
     def get_map(self):
         for j, row in enumerate(self.mini_map):
             for i, value in enumerate(row):
-                if value:
+                if value == 1:
                     self.world_map[(i, j)] = Turf(self.game, (i, j))
+                else:
+                    from turfs.floor.floor import TiledFloor
+                    self.world_map[(i, j)] = TiledFloor(self.game, (i, j))
 
     def process(self):
         for i in self.world_map:

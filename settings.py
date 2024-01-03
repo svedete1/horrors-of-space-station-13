@@ -1,7 +1,7 @@
 import math
 
 # game settings
-WIDTH, HEIGHT = RES = (1000, 600)
+WIDTH, HEIGHT = RES = (1200, 700)
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
 FPS = 0

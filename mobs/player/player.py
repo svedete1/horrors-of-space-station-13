@@ -1,6 +1,6 @@
 from settings import *
 
-from mob import mob
+from mobs import mob
 import pygame
 import math
 
@@ -13,7 +13,7 @@ class Player(mob.Mob):
         "right": (7, 14),
         "left": (8, 14)
     }
-    x_offset = 27
+    x_offset = 16
     y_offset = 16
     y_p = False
     y_m = False
@@ -22,6 +22,7 @@ class Player(mob.Mob):
     hitbox_size = (8, 29)
 
     def process(self):
+
         # логика смены напрвления пресонажа из-за смены направления его движения
         if self.y_m and not self.y_p:
             self.icon_state = "up"
@@ -44,46 +45,29 @@ class Player(mob.Mob):
         self.x_m = False
         self.y_p = False
         self.y_m = False
-        if keys[pygame.K_w]:
-            self.y += -speed
-            dy += -speed
-            self.y_m = True
-        if keys[pygame.K_s]:
-            self.y += speed
-            dy += speed
-            self.y_p = True
-        if keys[pygame.K_a]:
-            self.x += -speed
-            dx += -speed
-            self.x_m = True
-        if keys[pygame.K_d]:
-            self.x += speed
-            dx += speed
-            self.x_p = True
+        if not self.moving:
+            if keys[pygame.K_w]:
+                dy = -1
+                self.y_m = True
+            if keys[pygame.K_s]:
+                dy = 1
+                self.y_p = True
+            if keys[pygame.K_a]:
+                dx = -1
+                self.x_m = True
+            if keys[pygame.K_d]:
+                dx = 1
+                self.x_p = True
+            if dx or dy:
+                self.move((self.map_pos[0] + dx, self.map_pos[1] + dy))
         self.angle = self._get_mouse_angle()
 
-        if self.check_collisions():
-            self.x -= dx
-            self.update_sprite()
-            if self.check_collisions():
-                self.x += dx
-                self.y -= dy
-                self.update_sprite()
-                if self.check_collisions():
-                    self.x -= dx
-                    self.update_sprite()
-                    if self.check_collisions():
-                        self.x += dx
-                        self.y += dy
-                        self.update_sprite()
-
-        self.update_sprite()
+        self.movement()
 
     def draw(self):
         # pygame.draw.circle(self.game.screen, GREEN, (HALF_WIDTH, HALF_HEIGHT), 8.0)
-        self.game.screen.blit(self.sprite, (HALF_WIDTH - 16, HALF_HEIGHT - 16))
-        self.game.screen.blit(self.hitbox, (HALF_WIDTH - 4, HALF_HEIGHT - 13))
-        pygame.draw.line(self.game.screen, GREEN, (HALF_WIDTH, HALF_HEIGHT),
+        self.game.screen.blit(self.sprite, (HALF_WIDTH, HALF_HEIGHT))
+        pygame.draw.line(self.game.screen, GREEN, (HALF_WIDTH + 16, HALF_HEIGHT + 16),
                          (HALF_WIDTH + WIDTH * math.cos(self._get_mouse_angle()),
                           HALF_HEIGHT + WIDTH * math.sin(self._get_mouse_angle())), 1)
 
@@ -96,4 +80,4 @@ class Player(mob.Mob):
 
     def _get_mouse_angle(self):
         m_x, m_y = pygame.mouse.get_pos()
-        return math.atan2(m_y - HALF_HEIGHT, m_x - HALF_WIDTH)
+        return math.atan2(m_y - HALF_HEIGHT - 16, m_x - HALF_WIDTH - 16)

@@ -1,6 +1,6 @@
 from settings import *
 
-from mob import mob
+from mobs import mob
 import pygame
 import math
 
