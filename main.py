@@ -2,9 +2,9 @@ import sys
 
 from settings import *
 import pygame
-from mob.player import player
-from mob import mob
-from turf import turf
+from mobs.player import player
+from mobs import mob
+from turfs import turf
 
 
 class Game:
@@ -18,7 +18,7 @@ class Game:
     def new_game(self):
         self.mobhandler = mob.MobHandler(self)
         self.mobhandler.add_mob(player.Player(self, (HALF_WIDTH, HALF_HEIGHT),
-                                              icon="icon/mob/mob.png", icon_state="down"))
+                                              icon="icon/mobs/mob.png", icon_state="down"))
         self.turfhandler = turf.TurfHandler(self)
 
     def update(self):
