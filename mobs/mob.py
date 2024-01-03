@@ -1,6 +1,5 @@
 from settings import *
 
-import main
 import pygame
 import math
 import mobs
@@ -14,9 +13,9 @@ class Mob:
     y_offset = 0
     speed = 0.4
 
-    def __init__(self, game, pos: tuple[int, int],
-                 icon: str = "", icon_state: str = "", health: int = 100, angle: int = 0):
-        self.x, self.y = pos
+    def __init__(self, game, map_pos: tuple[int, int],
+                 icon: str = "icon/mobs/mob.png", icon_state: str = "", health: int = 100, angle: int = 0):
+        self.x, self.y = map_pos[0] * TILE, map_pos[1] * TILE
         if icon:
             self.icon = pygame.image.load(icon).convert_alpha()
         else:
@@ -43,8 +42,8 @@ class Mob:
 
     def draw(self):
         self.game.screen.blit(self.sprite,
-                              (HALF_WIDTH - (self.game.mobhandler.get_player.x - self.x * TILE),
-                               HALF_HEIGHT - (self.game.mobhandler.get_player.y - self.y * TILE)))
+                              (HALF_WIDTH - (self.game.mobhandler.get_player.x - self.x),
+                               HALF_HEIGHT - (self.game.mobhandler.get_player.y - self.y)))
 
     def update_sprite(self):
         self.sprite = pygame.Surface((TILE, TILE), pygame.SRCALPHA)
@@ -79,7 +78,6 @@ class Mob:
 
             self.x += int(dx)
             self.y += int(dy)
-
 
 
 class MobHandler:
