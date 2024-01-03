@@ -39,7 +39,6 @@ class Turf:
         self.sprite = None
         self.sprite_mask = None
         self.hitbox = None
-        self.hitbox_mask = None
 
     def process(self):
         self.update_sprite()
@@ -53,7 +52,7 @@ class Turf:
         self.sprite = pygame.Surface((TILE, TILE), pygame.SRCALPHA)
         state = self.icon_states[self.icon_state]
         self.sprite.blit(self.icon, (0, 0), (state[0] * TILE, state[1] * TILE, TILE, TILE))
-        self.hitbox_mask = pygame.mask.from_surface(self.sprite)
+        self.hitbox = pygame.mask.from_surface(self.sprite)
 
 
 class TurfHandler:

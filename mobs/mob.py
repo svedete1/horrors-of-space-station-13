@@ -12,7 +12,6 @@ class Mob:
     }
     x_offset = 0
     y_offset = 0
-    hitbox_size = (0, 0)
     speed = 0.4
 
     def __init__(self, game, pos: tuple[int, int],
@@ -54,9 +53,10 @@ class Mob:
         self.hitbox = pygame.mask.from_surface(self.sprite)
 
     def move(self, map_pos: tuple[int, int]):
-        try :
+        try:
             turf = self.game.turfhandler.world_map[(map_pos)].impassible
         except KeyError:
+            print("MOB in empty space!")
             turf = False
         if not self.moving and not turf:
             self.moving_pos = map_pos
