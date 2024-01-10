@@ -10,7 +10,7 @@ TILE = 32
 
 # player settings
 player_angle = 0
-player_speed = 0.3
+player_speed = 0.2
 
 # colors
 WHITE = (255, 255, 255)

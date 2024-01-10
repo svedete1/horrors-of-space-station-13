@@ -53,7 +53,7 @@ class Mob:
 
     def move(self, map_pos: tuple[int, int]):
         try:
-            turf = self.game.turfhandler.world_map[(map_pos)].impassible
+            turf = self.game.turfhandler.world_map[map_pos].impassible
         except KeyError:
             print("MOB in empty space!")
             turf = False
@@ -73,11 +73,16 @@ class Mob:
                 self.moving_pos[0] * TILE - self.x
             )
 
-            dx = self.speed * math.cos(mov_angle) * self.game.delta_time
-            dy = self.speed * math.sin(mov_angle) * self.game.delta_time
+            dx = self.speed * round(math.cos(mov_angle), 5) * self.game.delta_time
+            dy = self.speed * round(math.sin(mov_angle), 5) * self.game.delta_time
 
-            self.x += int(dx)
-            self.y += int(dy)
+            if (abs(self.moving_pos[0] * TILE - self.x) < abs(dx) or
+                    abs(self.moving_pos[1] * TILE - self.y) < abs(dy)):
+                self.x, self.y = self.moving_pos[0] * TILE, self.moving_pos[1] * TILE
+                self.moving = False
+            else:
+                self.x += int(dx)
+                self.y += int(dy)
 
 
 class MobHandler:
