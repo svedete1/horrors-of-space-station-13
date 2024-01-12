@@ -1,0 +1,31 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "Все файлы (*)",
+    "fileStates": {
+        "C:/Users/svedetel/Documents/GitHub/horrors-of-space-station-13/horrors-of-space-station-13/maps/test.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 234,
+                "y": -210
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/svedetel/Documents/GitHub/horrors-of-space-station-13/horrors-of-space-station-13/maps/tiled",
+    "map.fixedSize": true,
+    "map.lastUsedFormat": "tmx",
+    "map.renderOrder": null,
+    "openFiles": [
+    ],
+    "project": "horrors_of_ss13.tiled-project",
+    "recentFiles": [
+        "C:/Users/svedetel/Documents/GitHub/horrors-of-space-station-13/horrors-of-space-station-13/maps/test.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}
