@@ -2,6 +2,7 @@ from settings import *
 
 import pygame
 import math
+import pytmx
 
 _ = False
 
@@ -17,10 +18,6 @@ mini_map = [
     [1, 1, 1, 1, 1, 1, _, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ]
 
-icon_states = {
-    "default": (9, 7)
-}
-
 
 class Turf:
     impassible = True
@@ -28,6 +25,9 @@ class Turf:
     icon_path = "icon/turfs/wall.png"
     icon_states = {
         "": (0, 0),
+        "steel": (1, 0),
+        "reinforced": (0, 1),
+        "corrupted": (0, 0)
     }
     icon_state = ""
 
@@ -56,20 +56,30 @@ class Turf:
 
 
 class TurfHandler:
-    def __init__(self, game):
+    def __init__(self, game, tmx_file='maps/test.tmx'):
         self.game = game
-        self.mini_map = mini_map
+        # self.mini_map = mini_map
+        self.tmx_map = pytmx.TiledMap(tmx_file)
+        self.gid_map = self.tmx_map.tiledgidmap
         self.world_map = {}
         self.get_map()
 
+    def get_id(self, gid):
+        return self.gid_map[gid] - 1
+
     def get_map(self):
-        for j, row in enumerate(self.mini_map):
-            for i, value in enumerate(row):
-                if value == 1:
-                    self.world_map[(i, j)] = Turf(self.game, (i, j))
-                else:
-                    from turfs.floor.floor import TiledFloor
-                    self.world_map[(i, j)] = TiledFloor(self.game, (i, j))
+
+        turfs = self.tmx_map.get_layer_by_name('turfs')
+
+        for x in range(self.tmx_map.width):
+            for y in range(self.tmx_map.height):
+
+                if gid := turfs.data[y][x]:
+                    if gid == 1:
+                        self.world_map[(x, y)] = Turf(self.game, (x, y))
+                    elif gid == 2:
+                        from turfs.floor.floor import TiledFloor
+                        self.world_map[(x, y)] = TiledFloor(self.game, (x, y))
 
     def process(self):
         for i in self.world_map:
