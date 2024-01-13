@@ -22,16 +22,10 @@ mini_map = [
 class Turf:
     impassible = True
     hitbox_size = (TILE, TILE)
-    icon_path = "icon/turfs/wall.png"
-    icon_states = {
-        "": (0, 0),
-        "steel": (1, 0),
-        "reinforced": (0, 1),
-        "corrupted": (0, 0)
-    }
-    icon_state = ""
+    icon_path = icon_walls
+    icon_states = icon_states_walls
 
-    def __init__(self, game, map_pos: tuple[int, int]):
+    def __init__(self, game, map_pos: tuple[int, int], icon_state=""):
         self.game = game
         self.mx, self.my = map_pos
         self.x, self.y = self.mx * TILE, self.my * TILE
@@ -39,6 +33,7 @@ class Turf:
         self.sprite = None
         self.sprite_mask = None
         self.hitbox = None
+        self.icon_state = icon_state
         self.update_sprite()
 
     def process(self):
@@ -57,7 +52,7 @@ class Turf:
 
 
 class TurfHandler:
-    def __init__(self, game, tmx_file='maps/test.tmx'):
+    def __init__(self, game, tmx_file='maps/test2.tmx'):
         self.game = game
         # self.mini_map = mini_map
         self.tmx_map = pytmx.TiledMap(tmx_file)
@@ -76,11 +71,12 @@ class TurfHandler:
             for y in range(self.tmx_map.height):
 
                 if gid := turfs.data[y][x]:
-                    if gid == 1:
-                        self.world_map[(x, y)] = Turf(self.game, (x, y))
-                    elif gid == 2:
-                        from turfs.floor.floor import TiledFloor
-                        self.world_map[(x, y)] = TiledFloor(self.game, (x, y))
+                    gid_data = self.tmx_map.get_tile_properties_by_gid(gid)
+                    if gid_data['icon_state'] in icon_states_walls:
+                        self.world_map[(x, y)] = Turf(self.game, (x, y), icon_state=gid_data['icon_state'])
+                    elif gid_data['icon_state'] in icon_states_floors:
+                        from turfs.floor.floor import Floor
+                        self.world_map[(x, y)] = Floor(self.game, (x, y), icon_state=gid_data['icon_state'])
 
     def process(self):
         for i in self.world_map:

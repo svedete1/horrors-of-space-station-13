@@ -11,7 +11,7 @@ class Mob:
     }
     x_offset = 0
     y_offset = 0
-    speed = 0.4
+    speed = 0.45
 
     def __init__(self, game, map_pos: tuple[int, int],
                  icon: str = "icon/mobs/mob.png", icon_state: str = "", health: int = 100, angle: int = 0):
