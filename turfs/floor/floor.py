@@ -7,12 +7,6 @@ import math
 
 class Floor(turfs.turf.Turf):
     impassible = False
-    icon_path = "icon/turfs/tiles.png"
+    icon_path = icon_floors
+    icon_states = icon_states_floors
 
-
-class TiledFloor(Floor):
-    icon_states = {
-        "": (0, 0),
-        "tiled floor": (1, 0)
-    }
-    icon_state = "tiled floor"

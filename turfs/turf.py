@@ -2,6 +2,7 @@ from settings import *
 
 import pygame
 import math
+import pytmx
 
 _ = False
 
@@ -17,21 +18,14 @@ mini_map = [
     [1, 1, 1, 1, 1, 1, _, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ]
 
-icon_states = {
-    "default": (9, 7)
-}
-
 
 class Turf:
     impassible = True
     hitbox_size = (TILE, TILE)
-    icon_path = "icon/turfs/wall.png"
-    icon_states = {
-        "": (0, 0),
-    }
-    icon_state = ""
+    icon_path = icon_walls
+    icon_states = icon_states_walls
 
-    def __init__(self, game, map_pos: tuple[int, int]):
+    def __init__(self, game, map_pos: tuple[int, int], icon_state=""):
         self.game = game
         self.mx, self.my = map_pos
         self.x, self.y = self.mx * TILE, self.my * TILE
@@ -39,9 +33,11 @@ class Turf:
         self.sprite = None
         self.sprite_mask = None
         self.hitbox = None
+        self.icon_state = icon_state
+        self.update_sprite()
 
     def process(self):
-        self.update_sprite()
+        pass
 
     def draw(self):
         self.game.screen.blit(self.sprite,
@@ -56,20 +52,31 @@ class Turf:
 
 
 class TurfHandler:
-    def __init__(self, game):
+    def __init__(self, game, tmx_file='maps/test2.tmx'):
         self.game = game
-        self.mini_map = mini_map
+        # self.mini_map = mini_map
+        self.tmx_map = pytmx.TiledMap(tmx_file)
+        self.gid_map = self.tmx_map.tiledgidmap
         self.world_map = {}
         self.get_map()
 
+    def get_id(self, gid):
+        return self.gid_map[gid] - 1
+
     def get_map(self):
-        for j, row in enumerate(self.mini_map):
-            for i, value in enumerate(row):
-                if value == 1:
-                    self.world_map[(i, j)] = Turf(self.game, (i, j))
-                else:
-                    from turfs.floor.floor import TiledFloor
-                    self.world_map[(i, j)] = TiledFloor(self.game, (i, j))
+
+        turfs = self.tmx_map.get_layer_by_name('turfs')
+
+        for x in range(self.tmx_map.width):
+            for y in range(self.tmx_map.height):
+
+                if gid := turfs.data[y][x]:
+                    gid_data = self.tmx_map.get_tile_properties_by_gid(gid)
+                    if gid_data['icon_state'] in icon_states_walls:
+                        self.world_map[(x, y)] = Turf(self.game, (x, y), icon_state=gid_data['icon_state'])
+                    elif gid_data['icon_state'] in icon_states_floors:
+                        from turfs.floor.floor import Floor
+                        self.world_map[(x, y)] = Floor(self.game, (x, y), icon_state=gid_data['icon_state'])
 
     def process(self):
         for i in self.world_map:
