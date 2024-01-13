@@ -39,9 +39,10 @@ class Turf:
         self.sprite = None
         self.sprite_mask = None
         self.hitbox = None
+        self.update_sprite()
 
     def process(self):
-        self.update_sprite()
+        pass
 
     def draw(self):
         self.game.screen.blit(self.sprite,
