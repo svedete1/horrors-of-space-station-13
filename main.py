@@ -40,6 +40,10 @@ class Game:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+        keys = pygame.key.get_pressed()
+        if not self.mobhandler.mobs[1].moving:
+            if keys[pygame.K_k]:
+                self.mobhandler.mobs[1].move_to_map_pos((28, 11))
 
     def run(self):
         while True:
