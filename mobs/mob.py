@@ -102,7 +102,8 @@ class MobHandler:
         self.mobs.append(mob)
 
     def delete_mob(self, mob: Mob) -> bool:
-        try: self.mobs.remove(mob)
+        try:
+            self.mobs.remove(mob)
         except ValueError:
             return False
         return True
