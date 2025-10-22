@@ -11,12 +11,20 @@ import mobs
 class SmartMob(mobs.mob.Mob):
     path = list()
     has_task = False
+    has_task_patrol = False
+    starting_patrol = False
+    patrol_path = list()
+    current_node = 0
+    speed = 0.25
 
     # здесь работает логика моба, эта функция вызывается каждый кадр
     def process(self):
         # Код писать тут
         if self.has_task:
             self.task_move()
+
+        if not self.has_task and self.has_task_patrol:
+            self.patrolling()
         # НЕ ТРОГАТЬ ЭТО
         self.update_sprite()
         self.movement()
@@ -84,10 +92,27 @@ class SmartMob(mobs.mob.Mob):
     def task_move(self):
         if self.moving:
             return
+
         if not self.path:
             self.has_task = False
+            if self.has_task_patrol:
+                self.starting_patrol = False
             return
 
         self.move(self.path.pop(0))
 
+    def patrol(self, nodes: list[tuple[int, int], ...]):
+        self.has_task_patrol = True
+        self.patrol_path = nodes
+        self.move_to_map_pos(nodes[0])
 
+    def stop_patrol(self):
+        self.has_task_patrol = False
+        self.patrol_path = list()
+        self.current_node = 0
+
+    def patrolling(self):
+        self.current_node += 1
+        if self.current_node > (len(self.patrol_path) - 1):
+            self.current_node = 0
+        self.move_to_map_pos(self.patrol_path[self.current_node])

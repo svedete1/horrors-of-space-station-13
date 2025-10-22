@@ -43,7 +43,7 @@ class Game:
         keys = pygame.key.get_pressed()
         if not self.mobhandler.mobs[1].moving:
             if keys[pygame.K_k]:
-                self.mobhandler.mobs[1].move_to_map_pos((28, 11))
+                self.mobhandler.mobs[1].patrol([(28, 11), (2, 14), (17, 4)])
 
     def run(self):
         while True:
