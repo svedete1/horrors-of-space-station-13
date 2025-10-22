@@ -57,7 +57,6 @@ class TurfHandler:
         # self.mini_map = mini_map
         self.tmx_map = pytmx.TiledMap(tmx_file)
         self.gid_map = self.tmx_map.tiledgidmap
-        print()
         self.world_map = {}
         self.get_map()
         self.path_map = list()
