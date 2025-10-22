@@ -47,7 +47,8 @@ class EffectHandler:
         self.effects.append(effect)
     
     def remove_effect(self, effect:Effect) -> bool:
-        try: self.effects.remove(effect)
+        try:
+            self.effects.remove(effect)
         except ValueError:
             return False
         return True
