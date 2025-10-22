@@ -6,7 +6,6 @@ from settings import *
 import pygame
 import math
 import mobs
-from pprint import pprint
 
 
 class SmartMob(mobs.mob.Mob):
