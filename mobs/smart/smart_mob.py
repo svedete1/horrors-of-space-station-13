@@ -1,4 +1,3 @@
-from turtledemo.penrose import start
 
 from collections import deque
 
