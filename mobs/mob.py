@@ -63,7 +63,7 @@ class Mob:
             return True
         return False
 
-    def movement(self):
+    def movement(self) -> None:
         if (self.moving_pos[0] * TILE, self.moving_pos[1] * TILE) == self.pos:
             self.moving = False
 
@@ -90,19 +90,23 @@ class MobHandler:
         self.game = game
         self.mobs = list()
 
-    def process(self):
+    def process(self) -> None:
         for mob in self.mobs:
             mob.process()
 
-    def draw(self):
+    def draw(self) -> None:
         for mob in self.mobs:
             mob.draw()
 
-    def add_mob(self, mob: Mob):
+    def add_mob(self, mob: Mob) -> None:
         self.mobs.append(mob)
 
-    def delete_mob(self, mob: Mob):
-        self.mobs.remove(mob)
+    def delete_mob(self, mob: Mob) -> bool:
+        try:
+            self.mobs.remove(mob)
+        except ValueError:
+            return False
+        return True
 
     @property
     def get_player(self):

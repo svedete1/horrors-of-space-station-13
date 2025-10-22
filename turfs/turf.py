@@ -59,6 +59,8 @@ class TurfHandler:
         self.gid_map = self.tmx_map.tiledgidmap
         self.world_map = {}
         self.get_map()
+        self.path_map = list()
+        self.gen_path_map()
 
     def get_id(self, gid):
         return self.gid_map[gid] - 1
@@ -77,6 +79,18 @@ class TurfHandler:
                     elif gid_data['icon_state'] in icon_states_floors:
                         from turfs.floor.floor import Floor
                         self.world_map[(x, y)] = Floor(self.game, (x, y), icon_state=gid_data['icon_state'])
+
+    def gen_path_map(self):
+        self.path_map = list()
+        for y in range(self.tmx_map.height):
+            temp_lst = list()
+            for x in range(self.tmx_map.width):
+                if self.world_map[(x, y)].impassible:
+                    temp_lst.append(None)
+                else:
+                    temp_lst.append((x, y))
+            self.path_map.append(temp_lst)
+
 
     def process(self):
         for i in self.world_map:
