@@ -21,13 +21,13 @@ class Effect:
         self.hitbox = None
         self.hitbox_mask = None
     
-    def process() -> None:
+    def process(self) -> None:
         pass
 
-    def draw() -> None:
+    def draw(self) -> None:
         pass
 
-    def update_sprite() -> None:
+    def update_sprite(self) -> None:
         pass
 
 
