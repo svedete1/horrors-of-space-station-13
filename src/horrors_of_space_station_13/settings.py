@@ -22,15 +22,15 @@ DARKGRAY = (40, 40, 40)
 PURPLE = (120, 0, 120)
 
 # icons
-icon_walls = "icon/turfs/wall.png"
+icon_walls = "src/horrors_of_space_station_13/icon/turfs/wall.png"
 icon_states_walls = {
-        "no_texture": (0, 0),
-        "steel": (1, 0),
-        "reinforced": (0, 1),
-        "corrupted": (1, 1)
+    "no_texture": (0, 0),
+    "steel": (1, 0),
+    "reinforced": (0, 1),
+    "corrupted": (1, 1),
 }
 
-icon_floors = "icon/turfs/tiles.png"
+icon_floors = "src/horrors_of_space_station_13/icon/turfs/tiles.png"
 icon_states_floors = {
     "": (0, 0),
     "gray": (1, 0),
@@ -50,5 +50,4 @@ icon_states_floors = {
     "kitchen": (3, 2),
     "corrupted": (4, 2),
     "white_plain": (5, 2),
-
 }

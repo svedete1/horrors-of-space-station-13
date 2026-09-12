@@ -1,19 +1,16 @@
-
 from collections import deque
 
-from settings import *
+from horrors_of_space_station_13.settings import *
 
-import pygame
-import math
-import mobs
+from .. import Mob
 
 
-class SmartMob(mobs.mob.Mob):
-    path = list()
+class SmartMob(Mob):
+    path = []
     has_task = False
     has_task_patrol = False
     starting_patrol = False
-    patrol_path = list()
+    patrol_path = []
     current_node = 0
     speed = 0.25
 
@@ -54,9 +51,9 @@ class SmartMob(mobs.mob.Mob):
         goal = coord_to_index[goal_xy]
 
         # Directions (4 or 8)
-        dirs = [(1,0),(-1,0),(0,1),(0,-1)]
+        dirs = [(1, 0), (-1, 0), (0, 1), (0, -1)]
         if diagonals:
-            dirs += [(1,1),(1,-1),(-1,1),(-1,-1)]
+            dirs += [(1, 1), (1, -1), (-1, 1), (-1, -1)]
 
         queue = deque([start])
         came_from = {start: None}

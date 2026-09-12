@@ -1,11 +1,13 @@
 import sys
 
-from settings import *
 import pygame
-from mobs.player import player
-import mobs
-from mobs.smart import smart_mob
-from turfs import turf
+
+from horrors_of_space_station_13.settings import *
+
+from .mobs import Mob, MobHandler
+from .mobs.player import Player
+from .mobs.smart import SmartMob
+from .turfs import TurfHandler
 
 
 class Game:
@@ -17,11 +19,12 @@ class Game:
         self.new_game()
 
     def new_game(self):
-        self.mobhandler = mobs.mob.MobHandler(self)
-        self.mobhandler.add_mob(player.Player(self, (1, 2),
-                                              icon="icon/mobs/mob.png", icon_state="down"))
-        self.mobhandler.add_mob(smart_mob.SmartMob(self, (1, 1)))
-        self.turfhandler = turf.TurfHandler(self)
+        self.mobhandler = MobHandler(self)
+        self.mobhandler.add_mob(
+            Player(self, (1, 2), icon="src/horrors_of_space_station_13/icon/mobs/mob.png", icon_state="down")
+        )
+        self.mobhandler.add_mob(SmartMob(self, (1, 1)))
+        self.turfhandler = TurfHandler(self)
 
     def update(self):
         pygame.display.flip()
@@ -39,11 +42,10 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                sys.exit()
+                sys.exit(0)
         keys = pygame.key.get_pressed()
-        if not self.mobhandler.mobs[1].moving:
-            if keys[pygame.K_k]:
-                self.mobhandler.mobs[1].patrol([(28, 11), (2, 14), (17, 4)])
+        if not self.mobhandler.mobs[1].moving and keys[pygame.K_k]:
+            self.mobhandler.mobs[1].patrol([(28, 11), (2, 14), (17, 4)])
 
     def run(self):
         while True:
@@ -52,6 +54,6 @@ class Game:
             self.draw()
 
 
-if __name__ == "__main__":
+def main():
     game = Game()
     game.run()

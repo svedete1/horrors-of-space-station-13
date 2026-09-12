@@ -1,0 +1,54 @@
+{
+    "activeFile": "C:/Users/SVEDTEL/Documents/GitHub/horrors-of-space-station-13/maps/test2.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "Все файлы (*)",
+    "fileStates": {
+        "C:/Users/SVEDTEL/Documents/GitHub/horrors-of-space-station-13/maps/test.tmx": {
+            "scale": 0.4077083333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 479.50945324476237,
+                "y": -28.206438426162492
+            }
+        },
+        "C:/Users/SVEDTEL/Documents/GitHub/horrors-of-space-station-13/maps/test2.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 163,
+                "y": 195
+            }
+        },
+        "floor.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "turfsheet.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "wall.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "openFiles": [
+        "floor.tsx",
+        "wall.tsx",
+        "C:/Users/SVEDTEL/Documents/GitHub/horrors-of-space-station-13/maps/test.tmx",
+        "C:/Users/SVEDTEL/Documents/GitHub/horrors-of-space-station-13/maps/test2.tmx"
+    ],
+    "project": "horrors_of_ss13.tiled-project",
+    "recentFiles": [
+        "floor.tsx",
+        "wall.tsx",
+        "C:/Users/SVEDTEL/Documents/GitHub/horrors-of-space-station-13/maps/test.tmx",
+        "C:/Users/SVEDTEL/Documents/GitHub/horrors-of-space-station-13/maps/test2.tmx",
+        "turfsheet.tsx"
+    ]
+}
