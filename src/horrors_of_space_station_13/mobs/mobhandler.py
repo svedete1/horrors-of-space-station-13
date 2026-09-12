@@ -1,3 +1,5 @@
+import logging
+
 from .mob import Mob
 from .player import Player
 
@@ -5,7 +7,9 @@ from .player import Player
 class MobHandler:
     def __init__(self, game):
         self.game = game
-        self.mobs = list()
+        self.mobs = []
+        self.logger = logging.getLogger(__name__)
+        self.logger.info("Mobhandler initialized")
 
     def process(self) -> None:
         for mob in self.mobs:

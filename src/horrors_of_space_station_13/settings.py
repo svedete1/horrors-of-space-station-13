@@ -1,9 +1,10 @@
-import math
+import pygame
 
 # game settings
 WIDTH, HEIGHT = RES = (1200, 700)
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
+WINDOW_FLAGS = pygame.OPENGL | pygame.DOUBLEBUF
 FPS = 100
 TILE = 32
 

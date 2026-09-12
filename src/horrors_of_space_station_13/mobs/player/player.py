@@ -67,17 +67,15 @@ class Player(Mob):
         self.movement()
 
     def draw(self):
-        # pygame.draw.circle(self.game.screen, GREEN, (HALF_WIDTH, HALF_HEIGHT), 8.0)
-        self.game.screen.blit(self.sprite, (HALF_WIDTH, HALF_HEIGHT))
-        pygame.draw.line(
-            self.game.screen,
+        col, row = self.icon_states[self.icon_state]
+        self.game.renderer.draw_tile(self.texture, HALF_WIDTH, HALF_HEIGHT, col, row)
+        angle = self._get_mouse_angle()
+        self.game.renderer.draw_line(
+            HALF_WIDTH + 16,
+            HALF_HEIGHT + 16,
+            HALF_WIDTH + WIDTH * math.cos(angle),
+            HALF_HEIGHT + WIDTH * math.sin(angle),
             GREEN,
-            (HALF_WIDTH + 16, HALF_HEIGHT + 16),
-            (
-                HALF_WIDTH + WIDTH * math.cos(self._get_mouse_angle()),
-                HALF_HEIGHT + WIDTH * math.sin(self._get_mouse_angle()),
-            ),
-            1,
         )
 
     """

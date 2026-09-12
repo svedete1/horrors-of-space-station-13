@@ -1,3 +1,5 @@
+import logging
+
 import pytmx
 
 from horrors_of_space_station_13.settings import *
@@ -16,6 +18,8 @@ class TurfHandler:
         self.get_map()
         self.path_map = []
         self.gen_path_map()
+        self.logger = logging.getLogger(__name__)
+        self.logger.info("TurfHandler initialized")
 
     def get_id(self, gid):
         return self.gid_map[gid] - 1
