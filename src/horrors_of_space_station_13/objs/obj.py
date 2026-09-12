@@ -1,7 +1,6 @@
-from settings import *
 
-import pygame
-import math
+
+from settings import *
 
 
 class Obj:

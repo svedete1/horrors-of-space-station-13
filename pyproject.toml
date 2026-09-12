@@ -1,0 +1,20 @@
+[project]
+name = "horrors-of-space-station-13"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Ivaniuk George", email = "114770504+SVEDETEL69@users.noreply.github.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "pygame-ce>=2.5.8",
+    "pytmx>=3.32",
+]
+
+[project.scripts]
+horrors-of-space-station-13 = "horrors_of_space_station_13:main"
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"

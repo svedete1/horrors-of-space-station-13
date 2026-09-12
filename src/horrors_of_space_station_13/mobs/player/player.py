@@ -1,17 +1,19 @@
-from settings import *
-
-from mobs import mob
-import pygame
 import math
 
+import pygame
 
-class Player(mob.Mob):
+from horrors_of_space_station_13.settings import *
+
+from .. import Mob
+
+
+class Player(Mob):
     icon_states = {
         "": (0, 0),
         "down": (5, 14),
         "up": (6, 14),
         "right": (7, 14),
-        "left": (8, 14)
+        "left": (8, 14),
     }
     x_offset = 16
     y_offset = 16
@@ -67,16 +69,23 @@ class Player(mob.Mob):
     def draw(self):
         # pygame.draw.circle(self.game.screen, GREEN, (HALF_WIDTH, HALF_HEIGHT), 8.0)
         self.game.screen.blit(self.sprite, (HALF_WIDTH, HALF_HEIGHT))
-        pygame.draw.line(self.game.screen, GREEN, (HALF_WIDTH + 16, HALF_HEIGHT + 16),
-                         (HALF_WIDTH + WIDTH * math.cos(self._get_mouse_angle()),
-                          HALF_HEIGHT + WIDTH * math.sin(self._get_mouse_angle())), 1)
+        pygame.draw.line(
+            self.game.screen,
+            GREEN,
+            (HALF_WIDTH + 16, HALF_HEIGHT + 16),
+            (
+                HALF_WIDTH + WIDTH * math.cos(self._get_mouse_angle()),
+                HALF_HEIGHT + WIDTH * math.sin(self._get_mouse_angle()),
+            ),
+            1,
+        )
 
-    '''
+    """
     def check_collisions(self):
         for wall in self.game.turfhandler.world_map:
             if wall.sprite_mask.overlap(self.sprite_mask, (wall.x - self.x + 16, wall.y - self.y + 16)):
                 print("COLLISION!")
-    '''
+    """
 
     def _get_mouse_angle(self):
         m_x, m_y = pygame.mouse.get_pos()

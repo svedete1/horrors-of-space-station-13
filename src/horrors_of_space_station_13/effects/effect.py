@@ -20,7 +20,7 @@ class Effect:
         self.sprite_mask = None
         self.hitbox = None
         self.hitbox_mask = None
-    
+
     def process(self) -> None:
         pass
 
@@ -31,9 +31,7 @@ class Effect:
         pass
 
 
-
 class EffectHandler:
-
     def __init__(self, game):
         self.effects = list()
         self.game = game
@@ -42,11 +40,10 @@ class EffectHandler:
         for effect in self.effects:
             effect.process()
 
-    
-    def add_effect(self, effect:Effect) -> None:
+    def add_effect(self, effect: Effect) -> None:
         self.effects.append(effect)
-    
-    def remove_effect(self, effect:Effect) -> bool:
+
+    def remove_effect(self, effect: Effect) -> bool:
         try:
             self.effects.remove(effect)
         except ValueError:
