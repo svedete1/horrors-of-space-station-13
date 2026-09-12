@@ -2,6 +2,7 @@
 import pygame
 
 from horrors_of_space_station_13.settings import *
+from horrors_of_space_station_13.renderer import TextureManager
 
 _ = False
 
@@ -28,7 +29,8 @@ class Turf:
         self.game = game
         self.mx, self.my = map_pos
         self.x, self.y = self.mx * TILE, self.my * TILE
-        self.icon = pygame.image.load(self.icon_path).convert_alpha()
+        self.texture = TextureManager.get(self.icon_path)
+        self.icon = self.texture.surface
         self.sprite = None
         self.sprite_mask = None
         self.hitbox = None
@@ -39,12 +41,13 @@ class Turf:
         pass
 
     def draw(self):
-        self.game.screen.blit(
-            self.sprite,
-            (
-                HALF_WIDTH - (self.game.mobhandler.get_player.x - self.mx * TILE),
-                HALF_HEIGHT - (self.game.mobhandler.get_player.y - self.my * TILE),
-            ),
+        col, row = self.icon_states[self.icon_state]
+        self.game.renderer.draw_tile(
+            self.texture,
+            HALF_WIDTH - (self.game.mobhandler.get_player.x - self.mx * TILE),
+            HALF_HEIGHT - (self.game.mobhandler.get_player.y - self.my * TILE),
+            col,
+            row,
         )
 
     def update_sprite(self):

@@ -1,7 +1,9 @@
+import logging
 import math
 
 import pygame
 
+from horrors_of_space_station_13.renderer import TextureManager
 from horrors_of_space_station_13.settings import *
 
 
@@ -22,8 +24,10 @@ class Mob:
     ):
         self.x, self.y = map_pos[0] * TILE, map_pos[1] * TILE
         if icon:
-            self.icon = pygame.image.load(icon).convert_alpha()
+            self.texture = TextureManager.get(icon)
+            self.icon = self.texture.surface
         else:
+            self.texture = None
             self.icon = None
         self.icon_state = icon_state
         self.health = health
@@ -33,6 +37,7 @@ class Mob:
         self.hitbox = pygame.Surface((0, 0))
         self.moving = False
         self.moving_pos = (int(self.x / TILE), int(self.y / TILE))
+        self.logger = logging.getLogger(__name__)
 
     def process(self):
         self.update_sprite()
@@ -46,12 +51,13 @@ class Mob:
         return int(self.x / TILE), int(self.y / TILE)
 
     def draw(self):
-        self.game.screen.blit(
-            self.sprite,
-            (
-                HALF_WIDTH - (self.game.mobhandler.get_player.x - self.x),
-                HALF_HEIGHT - (self.game.mobhandler.get_player.y - self.y),
-            ),
+        col, row = self.icon_states[self.icon_state]
+        self.game.renderer.draw_tile(
+            self.texture,
+            HALF_WIDTH - (self.game.mobhandler.get_player.x - self.x),
+            HALF_HEIGHT - (self.game.mobhandler.get_player.y - self.y),
+            col,
+            row,
         )
 
     def update_sprite(self):
@@ -66,7 +72,7 @@ class Mob:
         try:
             turf = self.game.turfhandler.world_map[map_pos].impassible
         except KeyError:
-            print("MOB in empty space!")
+            self.logger.warning("MOB in empty space!")
             turf = False
         if not self.moving and not turf:
             self.moving_pos = map_pos

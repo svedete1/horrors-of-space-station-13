@@ -21,6 +21,14 @@
                 "y": 195
             }
         },
+        "C:/Users/SVEDTEL/Documents/GitHub/horrors-of-space-station-13/src/horrors_of_space_station_13/maps/test.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 540.9090909090909,
+                "y": 456.06060606060606
+            }
+        },
         "floor.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
@@ -45,6 +53,7 @@
     ],
     "project": "horrors_of_ss13.tiled-project",
     "recentFiles": [
+        "C:/Users/SVEDTEL/Documents/GitHub/horrors-of-space-station-13/src/horrors_of_space_station_13/maps/test.tmx",
         "floor.tsx",
         "wall.tsx",
         "C:/Users/SVEDTEL/Documents/GitHub/horrors-of-space-station-13/maps/test.tmx",
